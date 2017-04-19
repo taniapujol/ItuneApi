@@ -1,7 +1,62 @@
-<h1>Listado de grupos</h1>
-<input #dato type="text">
+<div class="container">
+  <div class="row">
+    <div class="col s12">
+      <h1>
+        <i class="material-icons large">pause_circle_filled</i>
+        <i class="material-icons large">play_circle_filled</i>
+        <i>Itunes Api Search</i>
+        <i class="material-icons large">play_circle_filled</i>
+        <i class="material-icons large">pause_circle_filled</i>
+      </h1>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col s6 offset-s2">
+      <form>
+        <div class="input-field">
+          <input id="search" type="search" #dato required>
+          <label class="label-icon" for="search"><i class="material-icons">search</i></label>
+          <button (click)="getDatos(dato.value)">Search</button>
+        </div>
+      </form>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col s12 m3" *ngFor="let m of datos">
+    <h3>{{ m.collectionName }}</h3>
+      <div ng-if="m.collectionName = m.collectionCensoredName">
+        <div class="card">
+          <div class="card-image">
+            <img src="{{m.artworkUrl100}}">
+            <span class="card-title">{{ m.collectionName }}</span>
+            <a href="{{m.previewUrl}}" class="btn-floating halfway-fab waves-effect waves-light red"><i class="material-icons">volume_up</i></a>
+          </div>
+          <div class="card-content">
+            <p>{{m.trackName}}</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<!--<input #dato type="text">
 <button (click)="getDatos(dato.value)">Search</button>
 <h3>Artista: {{ dato.value }}</h3>
 <ul>
-    <li *ngFor="let m of datos">{{ m.collectionName }}</li>
-</ul>
+  <li *ngFor="let m of datos">{{ m.collectionName }}{{artworkUrl100}}</li>
+
+</ul>-->

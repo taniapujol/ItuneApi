@@ -1,1 +1,11 @@
 /* You can add global styles to this file, and also import other style files */
+body{
+    background-image: -webkit-gradient(linear, left top, left bottom, from(white), to(black));
+    background-image: -webkit-linear-gradient(top, white, black);
+    background-image: -moz-linear-gradient(top, white, black);
+    background-image: linear-gradient(to bottom, white, black);
+    background-repeat: no-repeat;
+}
+.container{
+    min-height: 800px;
+}
