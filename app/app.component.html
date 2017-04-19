@@ -1,3 +1,7 @@
-<h1>
-  {{title}}
-</h1>
+<h1>Listado de grupos</h1>
+<input #dato type="text">
+<button (click)="getDatos(dato.value)">Search</button>
+<h3>Artista: {{ dato.value }}</h3>
+<ul>
+    <li *ngFor="let m of datos">{{ m.collectionName }}</li>
+</ul>
