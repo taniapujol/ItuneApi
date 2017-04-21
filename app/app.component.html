@@ -1,5 +1,5 @@
 <div class="container">
-  <div class="row">
+  <div class="row" id="TITULO">
     <div class="col s12">
       <h1>
         <i class="material-icons large">pause_circle_filled</i>
@@ -10,36 +10,127 @@
       </h1>
     </div>
   </div>
-  <div class="row">
-    <div class="col s6 offset-s2">
-      <form>
-        <div class="input-field">
+  <form>
+    <div class="row" id="BUSCADOR">
+      <div class="col s8 valign-wrapper">
+        <div class="input-field" style="width:100%">
           <input id="search" type="search" #dato required>
           <label class="label-icon" for="search"><i class="material-icons">search</i></label>
-          <button (click)="getDatos(dato.value)">Search</button>
+          <i class="material-icons">close</i>
+        </div>
+      </div>
+      <div class="col s2 valign-wrapper">
+        <select #media class="browser-default valign-wrapper">
+          <option value="all">todo</option>
+          <option value="music">Musica</option>
+          <option value="movie">Pelicula</option>
+          <option value="musicVideo">VideoClip</option>
+          <option value="tvShow">TV Serie</option>
+          <option value="ebook">Libro</option>
+        </select>
+      </div>
+      <div class="col s2 valign-wrapper">
+        <button id="btn-filtro" class="waves-effect waves-teal btn-flat grey" (click)="openFiltro()">Filtrar</button>
+      </div>
+    </div>
+    <div class="row" id="FILTRO" *ngIf="estado">
+      <h3><i class="material-icons small">search</i>Buscador avanzado</h3>
+      <form>
+        <div class="col s3" id="Pelicula">
+          <h5>Pelicula</h5>
+          <p>
+            <input #entity type="radio" value="movieArtist" id="movie1"/>
+            <label for="movie1">Actor</label>
+          </p>
+          <p>
+            <input #entity type="radio" value="movie" id="movie2"/>
+            <label for="movie2">Nombre</label>
+          </p>
+        </div>
+        <div class="col s3" id="Musica">
+          <h5>Musica</h5>
+          <p>
+            <input #entity type="radio" value="musicArtist" id="music1"/>
+            <label for="music1">Artista</label>
+          </p>
+          <p>
+            <input #entity type="radio" value="album" id="music2"/>
+            <label for="music2">Albunes</label>
+          </p>
+          <p>
+            <input #entity type="radio" value="song" id="music3"/>
+            <label for="music3">canciones</label>
+          </p>
+          <p>
+            <input #entity type="radio" value="musicVideo" id="music4"/>
+            <label for="music4">VideoClips</label>
+          </p>
+        </div>
+        <div class="col s3" id="VideoClip">
+          <h5>VideoClip</h5>
+          <p>
+            <input #entity type="radio" value="musicArtist" id="video1"/>
+            <label for="video1">Actor</label>
+          </p>
+          <p>
+            <input #entity type="radio" value="musicVideo" id="video2"/>
+            <label for="video2">Nombre</label>
+          </p>
+        </div>
+        <div class="col s3" id="Tv Serie">
+          <h5>VideoClip</h5>
+          <p>
+            <input #entity type="radio" value="tvEpisode" id="tv1"/>
+            <label for="tv1">episodio</label>
+          </p>
+          <p>
+            <input #entity type="radio" value="tvSeason" id="tv2"/>
+            <label for="tv2">temporadas</label>
+          </p>
         </div>
       </form>
     </div>
-  </div>
+    <div class="row">
+      <div class="col s12">
+        <button id="btn-busqueda" (click)="getDatos(dato.value, media.value, entity.value)">Search</button>
+      </div>
+    </div>
+  </form>
   <div class="row">
     <div class="col s12 m3" *ngFor="let m of datos">
-    <h3>{{ m.collectionName }}</h3>
-      <div ng-if="m.collectionName = m.collectionCensoredName">
-        <div class="card">
-          <div class="card-image">
-            <img src="{{m.artworkUrl100}}">
-            <span class="card-title">{{ m.collectionName }}</span>
-            <a href="{{m.previewUrl}}" class="btn-floating halfway-fab waves-effect waves-light red"><i class="material-icons">volume_up</i></a>
+      <div class="card hoverable">
+        <div class="card-image">
+          <img src="{{m.artworkUrl100}}">
+        </div>
+        <div class="card-content">
+          <div *ngIf="m.kind === 'feature-movie'">
+            <a (click)="onModal(m.previewUrl)">Previsualizar Pelicula</a>
           </div>
-          <div class="card-content">
-            <p>{{m.trackName}}</p>
+          <div *ngIf="m.kind === 'song'">
+            <audio controls style="width:100%">
+              <source src={{m.previewUrl}} type="audio/ogg">
+              <source src={{m.previewUrl}} type="audio/mpeg"> Your browser does not support the audio element.
+            </audio>
           </div>
         </div>
+        <h3 class="truncate">{{m.trackName}}</h3>
+        <h5 class="truncate">{{m.collectionName}}</h5>
       </div>
     </div>
   </div>
 </div>
-
+<!-- Modal Structure -->
+<div id="modal-video" class="modal">
+  <div class="modal-content">
+    <video width="320" height="240" controls>
+      <source src="{{UrlVideo}}" type="video/mp4">
+      <source src="{{UrlVideo}}" type="video/ogg"> Your browser does not support the video tag.
+    </video>
+  </div>
+  <div class="modal-footer">
+    <a href="#!" class="modal-action modal-close waves-effect waves-green btn-flat">close</a>
+  </div>
+</div>
 
 
 
